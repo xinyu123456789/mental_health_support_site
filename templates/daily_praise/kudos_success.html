@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紀錄成功 - 心理健康支援平台</title>
+    <style>
+        :root {
+            --bg-color: #F9F6F0;
+            --card-bg: #FFFFFF;
+            --primary-green: #C2D5BB;
+            --primary-green-hover: #A9BFA1;
+            --text-main: #4A4A4A;
+            --text-light: #888888;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Helvetica Neue', Helvetica, Arial, '微軟正黑體', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .success-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 450px;
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success-container h1 {
+            font-size: 24px;
+            color: #5C7A58;
+            margin-bottom: 15px;
+        }
+
+        .success-container p {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-green);
+            color: #333333;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: var(--primary-green-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-container">
+        <!-- 你也可以把這裡換成一張可愛的貼圖或插畫 -->
+        <div class="success-icon">🌱</div>
+        <h1>你的正能量已安穩入庫</h1>
+        <p>太棒了！<br>感謝你今天花時間看見自己的閃光點。<br>這份小小的力量，都會成為你成長的養分。</p>
+        
+        <!-- 這裡的超連結可以改為連回首頁或儀表板 -->
+        <a href="/" class="btn-home">回到首頁</a>
+    </div>
+
+</body>
+</html>

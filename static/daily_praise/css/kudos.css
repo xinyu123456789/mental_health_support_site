@@ -1,0 +1,117 @@
+/* 色彩計畫：低飽和度、溫潤色調，減少視覺壓力 */
+:root {
+    --bg-color: #F9F6F0; /* 溫暖的米色背景 */
+    --card-bg: #FFFFFF;
+    --primary-green: #C2D5BB; /* 柔和的淡綠色 */
+    --primary-green-hover: #A9BFA1;
+    --text-main: #4A4A4A;
+    --text-light: #888888;
+    --border-color: #EAEAEA;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Helvetica Neue', Helvetica, Arial, '微軟正黑體', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.diary-container {
+    background-color: var(--card-bg);
+    width: 100%;
+    max-width: 500px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+}
+
+.diary-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.diary-header h1 {
+    font-size: 24px;
+    color: #5C7A58; /* 稍微深一點的綠色作為標題，穩定視覺 */
+    margin-bottom: 10px;
+}
+
+.diary-header p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* 日記輸入框設計 */
+textarea {
+    width: 100%;
+    height: 180px;
+    padding: 15px;
+    background-color: #FCFAf8;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 16px;
+    color: var(--text-main);
+    resize: none; /* 防止破壞版面 */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    line-height: 1.6;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(194, 213, 187, 0.3);
+}
+
+textarea::placeholder {
+    color: #CCCCCC;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-green);
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-green-hover);
+}
+
+/* 成功或錯誤訊息提示 */
+#feedbackMessage {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.msg-success {
+    background-color: #E8F3E5;
+    color: #4CAF50;
+}
+
+.msg-error {
+    background-color: #FDE8E8;
+    color: #D32F2F;
+}

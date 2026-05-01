@@ -1,0 +1,105 @@
+from groq import Groq
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+''' 把 YOUR GROQ API KEY 改成你自己的 api key
+    把 YOUR GROQ API KEY 改成你自己的 api key
+    把 YOUR GROQ API KEY 改成你自己的 api key
+    把 YOUR GROQ API KEY 改成你自己的 api key
+    把 YOUR GROQ API KEY 改成你自己的 api key'''
+    
+api_key = 'YOUR GROQ API KEY'
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+
+class LLMClient:
+    def generate_stream_reply(self, system_prompt: str, history_logs:list|None, current_message:str):
+        client = Groq(
+            api_key=api_key,
+        )
+        
+        if history_logs:
+            messages = [{'role': 'system', 'content': system_prompt}] + history_logs + [{'role': 'user', 'content': current_message}]
+        else:
+            messages = [{'role': 'system', 'content': system_prompt}, {'role': 'user', 'content': current_message}]
+        
+        chat_completion = client.chat.completions.create(
+            messages=messages,
+            model="openai/gpt-oss-120b",
+            stream=True,
+            stop=None
+        )
+        for chunk in chat_completion:
+            token = chunk.choices[0].delta.content
+            if token:
+                yield token
+                
+class NLPClient:
+    def generate_reply(self, history_logs:list|None, current_message:str):
+        client = Groq(
+            api_key=api_key,
+        )
+        
+        system_prompt = '''# System Prompt: Multi-turn Dialogue Risk Analysis Engine
+
+## [Core Objective]
+You are an NLP analysis engine dedicated to monitoring psychological risk in text-based conversations. You will receive a multi-turn dialogue history containing system, user, and assistant roles. The conversation will be primarily in Traditional Chinese (Taiwanese context, including local internet slang from PTT/Dcard/Threads). 
+
+Your task is to synthesize the entire dialogue context to evaluate the user's current emotional state, but extract dangerous keywords strictly from the user's latest message.
+
+## [Emotional Score Criteria]
+Based on the cumulative context of the entire dialogue history, determine the user's emotional state at the time of their latest message. Output an integer from 0 to 5:
+* 5: Positive, stable, or normal functional discussion.
+* 4: Mild annoyance, complaints, or stress, within normal coping limits.
+* 3: Moderate negative emotions (depression, anxiety, helplessness); clearly low mood.
+* 2: High despair, severe self-negation, or signs of an intense emotional breakdown.
+* 1 (High Risk): The context reveals clear thoughts of self-harm, suicide preparation, or the latest message implies a final farewell (including Taiwanese slang like "想登出" - want to log out).
+* 0 (Immediate Crisis): The context indicates self-harm is currently in progress, or the latest message states a specific, imminent plan to execute suicide.
+
+## [Keyword Extraction Protocol (Key word)]
+1. Strict Scope: You MUST extract keywords ONLY from the user's latest message (Latest User Message). Never extract words from the historical messages.
+2. Trigger Condition: Keyword extraction is only triggered when Emotional Score ≤ 1. Extract the exact Traditional Chinese words or phrases from the last message that imply danger (e.g., farewells, despair, action confirmation).
+3. Default Value: If the score is > 1, OR if the score is ≤ 1 but the latest message contains absolutely no negative/extractable words (e.g., just saying "嗯"), you must output the Traditional Chinese character "無".
+
+## [Output Format Constraints]
+You must strictly follow the output format below. Do not include any conversational filler, explanations, or additional punctuation. The keywords must be in Traditional Chinese.
+
+Emotional Score: [Integer]
+Key word: [Keyword1, Keyword2... or 無]
+
+---
+
+## [Execution Examples]
+
+Example 1: History affects the score, but keywords are only from the last sentence.
+* Input:
+    [
+        {"role": "user", "content": "我今天買好木炭了，人生真的好難。"},
+        {"role": "assistant", "content": "聽到你這麼說我很擔心，發生了什麼事嗎？"},
+        {"role": "user", "content": "沒事了，謝謝你的陪伴，我要先走了，再見。"}
+    ]
+* Output: (Score is 0 because history mentions charcoal and the latest message is a farewell. Keywords are strictly from the latest message.)
+    Emotional Score: 0
+    Key word: 謝謝你的陪伴, 我要先走了, 再見
+
+Example 2: High risk in a single sentence.
+* Input:
+    [
+        {"role": "user", "content": "今天天氣不錯。"},
+        {"role": "assistant", "content": "對啊，有什麼特別的計畫嗎？"},
+        {"role": "user", "content": "計畫從頂樓跳下去，結束這一切。"}
+    ]
+* Output:
+    Emotional Score: 0
+    Key word: 頂樓跳下去, 結束這一切'''
+    
+        if history_logs:
+            messages = [{'role': 'system', 'content': system_prompt}, {'role': 'user', 'content': str(history_logs + [{'role': 'user', 'content': current_message}])}]
+        else:
+            messages = [{'role': 'system', 'content': system_prompt}, {'role': 'user', 'content': str([{'role': 'user', 'content': current_message}])}]
+        
+        chat_completion = client.chat.completions.create(
+            messages=messages,
+            model="openai/gpt-oss-120b",
+        )
+        
+        return (chat_completion.choices[0].message.content)

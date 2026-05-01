@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{% static 'ai_chatbot/css/chat.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <script>
+        const API_ENDPOINTS = {
+            history: "{% url 'ai_chatbot:api_history' %}",
+            send: "{% url 'ai_chatbot:api_send' %}"
+        };
+    </script>
+</head>
+<body>
+    <div class="app-layout">
+        
+        <aside class="sidebar">
+            <button id="new-chat-btn" class="new-chat-btn">
+                <span>＋</span> 新對話
+            </button>
+            
+            <div class="history-list" id="history-list">
+                {% if history_sessions %}
+                    <div class="history-section-title">最近的對話</div>
+                    {% for session in history_sessions %}
+                        <button class="history-item" data-session-id="{{ session.session_id }}">
+                            {{ session.session_summary|default:"新對話" }}
+                        </button>
+                    {% endfor %}
+                {% else %}
+                    <div class="history-section-title" style="text-align: center; margin-top: 20px;">
+                        尚無歷史紀錄
+                    </div>
+                {% endif %}
+            </div>
+        </aside>
+
+        <main class="main-chat">
+            <header class="chat-header">
+                <h2>💬 {{ page_title }}</h2>
+            </header>
+
+            <div id="chat-box" class="chat-messages">
+                <div class="message ai-msg welcome-msg">你好！我是涵涵，今天想跟我分享什麼呢？</div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    {% csrf_token %}
+                    <input type="hidden" id="current-session-id" value="">
+                    
+                    <textarea id="message-input" rows="1" placeholder="跟涵涵說點什麼..."></textarea>
+                    <button id="send-btn">發送</button>
+                </div>
+                <div class="disclaimer">
+                    涵涵是由 AI 驅動的陪伴機器人。若有緊急狀況，請務必尋求專業醫療協助。
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static 'ai_chatbot/js/chat.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊 - 心理健康支援平台</title>
+    <link rel="stylesheet" href="{% static 'user_info/css/auth.css' %}">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>建立專屬避風港</h1>
+            <p>加入我們，讓涵涵陪伴你度過每一天。</p>
+        </div>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST" action="{% url 'user_info:register' %}">
+            {% csrf_token %}
+            
+            <!-- 為了完美套用 CSS，我們手動渲染 Django 表單欄位 -->
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    <!-- 註冊時的密碼規則提示 -->
+                    {% if field.help_text %}
+                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
+                            {{ field.help_text|safe }}
+                        </small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="auth-btn">開始這趟旅程</button>
+        </form>
+
+        <div class="auth-links">
+            已經有帳號了嗎？ <a href="{% url 'user_info:login' %}">返回登入</a>
+        </div>
+    </div>
+
+    <!-- 針對 Django 預設 input 標籤補上樣式 -->
+    <style>
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 15px;
+            box-sizing: border-box;
+            background-color: #FCFAf8;
+        }
+    </style>
+    <script src="{% static 'user_info/js/auth.js' %}"></script>
+</body>
+</html>

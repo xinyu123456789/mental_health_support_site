@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日誇誇筆記 - 心理健康支援平台</title>
+    <!-- 引入外部 CSS 檔案 -->
+    <link rel="stylesheet" href="{% static 'daily_praise/css/kudos.css' %}">
+</head>
+<body>
+
+    <div class="diary-container">
+        <div class="diary-header">
+            <h1>每日誇誇筆記</h1>
+            <p>今天也是辛苦了！<br>寫下一件值得誇獎自己的事，存入你的正能量資料庫吧。</p>
+        </div>
+
+        <form id="kudosForm" data-api-url="{% url 'daily_praise:create_kudos_api' %}" data-success-url="{% url 'daily_praise:kudos_success_page' %}">
+            <!-- Django 必備的 CSRF Token -->
+            {% csrf_token %}
+            
+            <div class="input-group">
+                <!-- 對應 KudosNote 資料表的 praise_content 欄位 -->
+                <textarea 
+                    id="praiseContent" 
+                    name="praise_content" 
+                    placeholder="例如：今天雖然很累，但我還是堅持喝了 2000cc 的水！我真棒！"
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">好好紀錄下來</button>
+        </form>
+
+        <div id="feedbackMessage"></div>
+    </div>
+
+    <!-- 引入外部 JavaScript 檔案 -->
+    <script src="{% static 'daily_praise/js/kudos.js' %}"></script>
+</body>
+</html>

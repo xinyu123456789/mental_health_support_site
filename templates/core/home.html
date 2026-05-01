@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>涵涵 - 你的專屬 AI 心理陪伴空間</title>
+    <link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+</head>
+<body>
+    <div class="home-wrapper">
+        <!-- 導覽列：登入與註冊區塊 -->
+        <nav class="auth-nav">
+            {% if user.is_authenticated %}
+                <span class="user-nickname">你好，{{ user.profile.nickname|default:user.username }}</span>
+                <a href="{% url 'user_info:logout' %}" class="nav-btn logout-btn">登出</a>
+            {% else %}
+                <a href="{% url 'user_info:login' %}" class="nav-btn">登入</a>
+                <a href="{% url 'user_info:register' %}" class="nav-btn register-btn">註冊</a>
+            {% endif %}
+        </nav>
+
+        <header class="home-header">
+            <div class="user-greeting">
+                <h1 id="greeting-text">你好</h1>
+                <p class="motto">「無論外面的世界多吵雜，這裡永遠有你的位子。」</p>
+            </div>
+        </header>
+
+        <section class="portal-grid">
+            <a href="{% url 'ai_chatbot:chat_page' %}" class="portal-card chat-card">
+                <div class="card-content">
+                    <div class="icon-circle">💬</div>
+                    <h3>與涵涵聊天</h3>
+                    <p>分享當下的心情，讓文字溫柔地接住你。</p>
+                </div>
+                <div class="card-footer">點擊進入對話 &rarr;</div>
+            </a>
+
+            <a href="{% url 'daily_praise:kudos_note_page' %}" class="portal-card journal-card" id="journal-trigger">
+                <div class="card-content">
+                    <div class="icon-circle">📔</div>
+                    <h3>每日心情筆記</h3>
+                    <p>記錄今天的微小亮點，領取專屬的溫暖誇誇。</p>
+                </div>
+                <div class="card-footer">開啟筆記本 &rarr;</div>
+            </a>
+        </section>
+
+        <footer class="home-footer">
+            <div class="quote-box">
+                <p id="daily-quote">「每個小小的進步，都值得被大聲讚美。」</p>
+            </div>
+            <div class="system-info">
+                涵涵 AI 陪伴系統 V1.0 | 致力於提供溫暖的心理支持
+            </div>
+        </footer>
+    </div>
+
+    <script src="{% static 'core/js/home.js' %}"></script>
+</body>
+</html>

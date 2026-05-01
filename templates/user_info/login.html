@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 - 心理健康支援平台</title>
+    <link rel="stylesheet" href="{% static 'user_info/css/auth.css' %}">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>歡迎回來</h1>
+            <p>涵涵一直都在這裡陪伴你，<br>準備好紀錄今天的心情了嗎？</p>
+        </div>
+
+        <!-- 顯示錯誤訊息 -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST" action="{% url 'user_info:login' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_username">帳號</label>
+                <input type="text" name="username" id="id_username" required autofocus placeholder="請輸入帳號">
+            </div>
+
+            <div class="form-group">
+                <label for="id_password">密碼</label>
+                <input type="password" name="password" id="id_password" required placeholder="請輸入密碼">
+            </div>
+
+            <button type="submit" class="auth-btn">登入</button>
+        </form>
+
+        <div class="auth-links">
+            還沒有專屬你的避風港？ <a href="{% url 'user_info:register' %}">立即註冊</a>
+        </div>
+    </div>
+    <script src="{% static 'user_info/js/auth.js' %}"></script>
+</body>
+</html>
