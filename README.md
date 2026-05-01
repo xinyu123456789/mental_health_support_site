@@ -33,3 +33,10 @@
 ### 1. 安裝套件
 ```bash
 pip install -r requirements.txt
+```
+
+### 2. 執行專案
+```bash
+cd mental_health_support_site
+python manage.py runserver
+```

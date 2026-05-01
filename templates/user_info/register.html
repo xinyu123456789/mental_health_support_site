@@ -26,12 +26,10 @@
         <form method="POST" action="{% url 'user_info:register' %}">
             {% csrf_token %}
             
-            <!-- 為了完美套用 CSS，我們手動渲染 Django 表單欄位 -->
             {% for field in form %}
                 <div class="form-group">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {{ field }}
-                    <!-- 註冊時的密碼規則提示 -->
                     {% if field.help_text %}
                         <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
                             {{ field.help_text|safe }}
@@ -48,7 +46,6 @@
         </div>
     </div>
 
-    <!-- 針對 Django 預設 input 標籤補上樣式 -->
     <style>
         .form-group input {
             width: 100%;

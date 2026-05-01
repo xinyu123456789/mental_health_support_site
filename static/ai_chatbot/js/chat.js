@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sendBtn.disabled = true;
 
         try {
-            // ⭐️ 改變的地方 1：使用 API_ENDPOINTS.history
             const url = new URL(API_ENDPOINTS.history, window.location.origin);
             url.searchParams.append('session_id', sessionId);
 
@@ -110,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 session_id: currentSessionInput.value 
             };
 
-            // ⭐️ 改變的地方 2：使用 API_ENDPOINTS.send
             const response = await fetch(API_ENDPOINTS.send, {
                 method: 'POST',
                 headers: {

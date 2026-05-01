@@ -30,13 +30,12 @@ body {
     padding: 40px 20px;
 }
 
-/* --- 新增/修正：導覽列按鈕樣式 --- */
 .auth-nav {
     display: flex;
-    justify-content: flex-end; /* 靠右對齊 */
+    justify-content: flex-end;
     align-items: center;
     gap: 15px;
-    margin-bottom: 30px; /* 跟問候標題拉開距離 */
+    margin-bottom: 30px;
     width: 100%;
 }
 
@@ -46,7 +45,6 @@ body {
     font-weight: 500;
 }
 
-/* 確保所有按鈕都不是紫色的，並且排版一致 */
 .nav-btn, .nav-btn:visited, .nav-btn:active {
     text-decoration: none;
     font-size: 0.9rem;
@@ -62,7 +60,6 @@ body {
     background-color: #eee;
 }
 
-/* 註冊按鈕：金棕色調 */
 .register-btn, .register-btn:visited {
     background-color: var(--sidebar-warm);
     border-color: var(--accent-gold);
@@ -74,7 +71,6 @@ body {
     color: white;
 }
 
-/* 登出按鈕：低調的灰色 */
 .logout-btn, .logout-btn:visited {
     color: #999;
     font-size: 0.85rem;
@@ -87,7 +83,6 @@ body {
     color: #4a4a4a;
 }
 
-/* --- 問候區 --- */
 .home-header {
     text-align: center;
     margin-bottom: 60px;
@@ -105,7 +100,6 @@ body {
     font-style: italic;
 }
 
-/* --- 功能網格 --- */
 .portal-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -164,11 +158,9 @@ body {
     text-align: center;
 }
 
-/* 各別卡片色調微調 */
 .chat-card:hover { border-color: var(--accent-gold); }
 .journal-card:hover { border-color: #b8e2d6; }
 
-/* --- 頁尾 --- */
 .home-footer {
     text-align: center;
 }

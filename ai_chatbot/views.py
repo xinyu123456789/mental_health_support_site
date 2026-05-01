@@ -6,9 +6,6 @@ from .models import ChatSession, AIChatLog, SOSLog, SystemPrompt, AIModelRegistr
 from .service.llm_client import LLMClient, NLPClient
 from django.http import JsonResponse, StreamingHttpResponse
 
-# ==========================================
-# 1. 渲染聊天室網頁 (GET)
-# ==========================================
 @login_required 
 def chat_page_view(request):
     """只負責渲染聊天室網頁外殼與側邊欄"""
@@ -24,10 +21,6 @@ def chat_page_view(request):
     }
     return render(request, 'ai_chatbot/index.html', context)
 
-
-# ==========================================
-# 2. 獲取歷史對話 API (GET)
-# ==========================================
 @login_required  
 def get_chat_history_api(request):
     """只負責撈取舊對話紀錄並回傳 JSON"""
@@ -51,10 +44,6 @@ def get_chat_history_api(request):
     
     return JsonResponse({'status': 'ERROR', 'message': '不支援的請求方法'}, status=405)
 
-
-# ==========================================
-# 3. 發送訊息與打字機串流 API (POST)
-# ==========================================
 @login_required
 def send_message_stream_api(request):
     """負責處理發送訊息、SOS 檢查、呼叫 LLM 與回傳串流"""

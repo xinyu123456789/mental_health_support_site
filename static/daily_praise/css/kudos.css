@@ -1,4 +1,4 @@
-/* 色彩計畫：低飽和度、溫潤色調，減少視覺壓力 */
+/* 低飽和度、溫潤色調，減少視覺壓力 */
 :root {
     --bg-color: #F9F6F0; /* 溫暖的米色背景 */
     --card-bg: #FFFFFF;
@@ -38,7 +38,7 @@ body {
 
 .diary-header h1 {
     font-size: 24px;
-    color: #5C7A58; /* 稍微深一點的綠色作為標題，穩定視覺 */
+    color: #5C7A58;
     margin-bottom: 10px;
 }
 

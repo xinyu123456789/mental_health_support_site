@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>每日誇誇筆記 - 心理健康支援平台</title>
-    <!-- 引入外部 CSS 檔案 -->
     <link rel="stylesheet" href="{% static 'daily_praise/css/kudos.css' %}">
 </head>
 <body>
@@ -17,11 +16,9 @@
         </div>
 
         <form id="kudosForm" data-api-url="{% url 'daily_praise:create_kudos_api' %}" data-success-url="{% url 'daily_praise:kudos_success_page' %}">
-            <!-- Django 必備的 CSRF Token -->
             {% csrf_token %}
             
             <div class="input-group">
-                <!-- 對應 KudosNote 資料表的 praise_content 欄位 -->
                 <textarea 
                     id="praiseContent" 
                     name="praise_content" 
@@ -36,7 +33,6 @@
         <div id="feedbackMessage"></div>
     </div>
 
-    <!-- 引入外部 JavaScript 檔案 -->
     <script src="{% static 'daily_praise/js/kudos.js' %}"></script>
 </body>
 </html>

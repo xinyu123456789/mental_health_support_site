@@ -2,14 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-
-# 引入剛剛寫好的自訂註冊表單
 from .forms import CustomUserRegisterForm
 
 def register_view(request):
     """處理使用者註冊"""
     if request.method == 'POST':
-        # 替換為自訂表單
         form = CustomUserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
